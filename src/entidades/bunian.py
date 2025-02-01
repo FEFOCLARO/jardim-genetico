@@ -17,6 +17,7 @@ class Bunian(EspiritoBase):
     def __init__(self, posicao_inicial: tuple):
         super().__init__(posicao_inicial, "BUNIAN")
         
+        
         # Genes específicos do Bunian que influenciam sua manifestação
         self.genes.update({
             'invisibilidade': random.uniform(*PARAMS_GENETICOS['BUNIAN']['INVISIBILIDADE']),
@@ -30,8 +31,8 @@ class Bunian(EspiritoBase):
         self.particulas_luz = []  # Para efeito de brilho
         
         # Cores do Bunian - tons de azul etéreo
-        self.cor_base = Color(*CORES['BUNIAN']['NUCLEO'])
-        self.cor_aura = Color(*CORES['BUNIAN']['AURA'])
+        self.cor_base = CORES['BUNIAN']['NUCLEO']
+        self.cor_aura = CORES['BUNIAN']['AURA']
         
         # Superfície adicional para efeitos de transparência
         self.superficie_transicao = Surface((
@@ -48,8 +49,8 @@ class Bunian(EspiritoBase):
         centro = tamanho // 2
         
         # Ajusta a cor base baseado no nível de manifestação
-        cor_atual = self.cor_base.copy()
-        cor_atual.a = int(255 * self.nivel_manifestacao)
+        cor_atual = (*self.cor_base[:3], int(255 * self.nivel_manifestacao))
+       
         
         # Desenha a forma base humanóide
         self._desenhar_forma_humanoide(centro, tamanho, cor_atual)
@@ -134,8 +135,8 @@ class Bunian(EspiritoBase):
                 pontos_aura.append((x, y))
             
             # Ajusta a cor da aura baseado na camada
-            cor_aura = self.cor_aura.copy()
-            cor_aura.a = int(100 * (1 - i * 0.2) * self.nivel_manifestacao)
+            cor_aura = (*self.cor_aura[:3],
+                       int(100 * (1 - i * 0.2) * self.nivel_manifestacao)) 
             
             # Desenha a camada da aura
             if len(pontos_aura) > 2:
@@ -154,8 +155,7 @@ class Bunian(EspiritoBase):
         self._atualizar_particulas_luz()
         self._desenhar_particulas_luz()
         
-        # Adiciona efeito de ondulação dimensional
-        self._desenhar_ondulacao_dimensional()
+
 
     def _atualizar_particulas_luz(self):
         """
@@ -186,8 +186,8 @@ class Bunian(EspiritoBase):
         criando um efeito etéreo e dimensional.
         """
         for particula in self.particulas_luz:
-            cor_particula = self.cor_base.copy()
-            cor_particula.a = int(255 * particula['vida'] * self.nivel_manifestacao)
+            cor_particula = (*self.cor_base[:3], 
+                           int(255 * particula['vida'] * self.nivel_manifestacao))
             
             pygame.draw.circle(
                 self.superficie_efeitos,

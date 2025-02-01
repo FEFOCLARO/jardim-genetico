@@ -33,8 +33,8 @@ class HuliJing(EspiritoBase):
         self.inicializar_caudas()
         
         # Cores específicas em tons âmbar/dourado
-        self.cor_base = Color(*CORES['HULI_JING']['NUCLEO'])
-        self.cor_aura = Color(*CORES['HULI_JING']['AURA'])
+        self.cor_base = CORES['HULI_JING']['NUCLEO']
+        self.cor_aura = CORES['HULI_JING']['AURA']
         
         # Estados específicos
         self.tempo_meditacao = 0
@@ -75,8 +75,7 @@ class HuliJing(EspiritoBase):
         # Várias camadas de círculos com opacidade decrescente
         for i in range(3):
             raio = raio_base * (1 - i * 0.2)
-            cor = self.cor_base.copy()
-            cor.a = int(255 * (1 - i * 0.3))
+            cor = (*self.cor_base[:3], int(255 * (1 - i * 0.3)))
             
             pygame.draw.circle(
                 self.superficie_nucleo,
@@ -200,8 +199,8 @@ class HuliJing(EspiritoBase):
             
             # Desenha a camada da aura
             if len(pontos_aura) > 2:
-                cor_aura = self.cor_aura.copy()
-                cor_aura.a = int(100 * (1 - i/num_camadas))
+                cor_aura = (*self.cor_aura[:3], 
+                          int(100 * (1 - i/num_camadas)))
                 pygame.draw.polygon(
                     self.superficie_aura,
                     cor_aura,

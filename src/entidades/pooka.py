@@ -100,8 +100,8 @@ class Pooka(EspiritoBase):
         # Cria múltiplas camadas de aura com diferentes opacidades
         for i in range(3):
             raio = raio_base * (1 + i * 0.3) * self.pulso_aura
-            cor_atual = self.cor_aura.copy()
-            cor_atual.a = int(100 * (1 - i * 0.3))  # Reduz opacidade em cada camada
+            cor_atual = (*CORES['POOKA']['AURA'][:3],
+                int(100 * (1 - i * 0.3)))
             
             pygame.draw.circle(
                 self.superficie_aura,
@@ -124,6 +124,42 @@ class Pooka(EspiritoBase):
         """Desenha um rastro mágico que segue o movimento do Pooka"""
         tamanho = self.superficie_efeitos.get_width()
         centro = tamanho // 2
+    
+    def _desenhar_faiscas(self):
+        """
+         Desenha pequenas faíscas mágicas ao redor do Pooka quando ele está travesso.
+         As faíscas são pequenos pontos de luz que aparecem em posições aleatórias
+         próximas ao núcleo do espírito, criando um efeito de energia mágica brincalhona.
+        """
+        
+        tamanho = self.superficie_efeitos.get_width()
+        centro = tamanho // 2
+        raio_efeito = tamanho * 0.4
+        
+        # Numero de faíscas baseado no nível de travessura
+        num_faiscas = int(5 * self.genes['travessura'])
+        
+        for _ in range(num_faiscas):
+            # Posição aleatória em torno do centro
+            angulo = random.uniform(0, 2 * pi)
+            distancia = random.uniform(0, raio_efeito)
+            x = centro + cos(angulo) * distancia
+            y = centro + sin(angulo) * distancia
+        
+            # Tamanho aleatório para cada faísca
+            tamanho_faisca = random.uniform(1, 3)
+        
+            # A opacidade varia com o tempo para criar um efeito cintilante
+            opacidade = int(200 * (0.5 + 0.5 * sin(self.fase_animacao * 5)))
+            cor_faisca = (*self.cor_base[:3], opacidade)
+        
+            # Desenha a faísca como um pequeno círculo brilhante
+            pygame.draw.circle(
+                self.superficie_efeitos,
+                cor_faisca,
+                (int(x), int(y)),
+                tamanho_faisca
+            )            
         
         # Calcula pontos do rastro baseado na direção do movimento
         dir_normalizada = self.velocidade.normalize()
@@ -133,8 +169,8 @@ class Pooka(EspiritoBase):
                 centro - dir_normalizada.y * (i * 8)
             )
             
-            cor_rastro = self.cor_base.copy()
-            cor_rastro.a = int(50 * (1 - i/5))  # Fade out
+            opacidade = int(50 * (1 - i/5))
+            cor_rastro = (*self.cor_base[:3], opacidade)
             
             pygame.draw.circle(
                 self.superficie_efeitos,
