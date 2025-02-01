@@ -5,7 +5,7 @@ import random
 from math import sin, cos, pi
 from pygame import Vector2, Color
 from .espirito_base import EspiritoBase
-from ..util.constantes import CORES, PARAMS_GENETICOS
+from ..util.constantes import CORES, PARAMS_GENETICOS, CONFIGURACAO_ESPIRITOS
 
 class Pooka(EspiritoBase):
     """
@@ -155,6 +155,8 @@ class Pooka(EspiritoBase):
         
         # Chance de fazer travessuras baseada nos genes
         self._tentar_travessura(delta_tempo)
+        
+        self._atualizar_visual()
 
     def _atualizar_transformacao(self, delta_tempo):
         """

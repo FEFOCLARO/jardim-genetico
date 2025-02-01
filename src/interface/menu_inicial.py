@@ -90,6 +90,16 @@ class MenuInicial:
             }
         }
 
+    def _interpolar_cor(self, cor1, cor2, fator):
+        """
+    Interpola entre duas cores baseado em um fator (0-1).
+    Usado para criar gradientes suaves.
+        """
+        return tuple(
+        int(c1 + (c2 - c1) * fator)
+        for c1, c2 in zip(cor1, cor2)
+    )
+    
     def _atualizar_particulas(self, delta_tempo):
         """
         Atualiza o sistema de partículas que cria um efeito

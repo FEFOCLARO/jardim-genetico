@@ -17,17 +17,17 @@ CORES = {
     
     # Cores base para cada tipo de espírito
     'POOKA': {
-        'NUCLEO': (158, 126, 187),    # Roxo místico
+        'NUCLEO': (158, 126, 187, 255),    # Roxo místico
         'AURA': (138, 106, 167, 100), # Aura roxa suave
         'RASTRO': (148, 116, 177, 50) # Rastro mais claro
     },
     'BUNIAN': {
-        'NUCLEO': (187, 210, 225),    # Azul etéreo
+        'NUCLEO': (187, 210, 225, 255),    # Azul etéreo
         'AURA': (167, 190, 205, 100), # Aura azul suave
         'RASTRO': (177, 200, 215, 50) # Rastro mais claro
     },
     'HULI_JING': {
-        'NUCLEO': (255, 223, 186),    # Âmbar suave
+        'NUCLEO': (255, 223, 186, 255),    # Âmbar suave
         'AURA': (235, 203, 166, 100), # Aura âmbar suave
         'RASTRO': (245, 213, 176, 50) # Rastro mais claro
     }

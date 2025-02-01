@@ -5,7 +5,7 @@ import random
 from math import sin, cos, pi
 from pygame import Vector2, Color, Surface
 from .espirito_base import EspiritoBase
-from ..util.constantes import CORES, PARAMS_GENETICOS
+from ..util.constantes import CORES, PARAMS_GENETICOS, CONFIGURACAO_ESPIRITOS
 
 class Bunian(EspiritoBase):
     """
@@ -208,6 +208,8 @@ class Bunian(EspiritoBase):
         
         # Atualiza movimento etéreo
         self._atualizar_movimento_etereo(delta_tempo)
+        
+        self._atualizar_visual()
 
     def _atualizar_manifestacao(self, delta_tempo):
         """

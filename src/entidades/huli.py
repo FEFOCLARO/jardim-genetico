@@ -5,7 +5,7 @@ import random
 from math import sin, cos, pi, exp
 from pygame import Vector2, Color, Surface
 from .espirito_base import EspiritoBase
-from ..util.constantes import CORES, PARAMS_GENETICOS
+from ..util.constantes import CORES, PARAMS_GENETICOS, CONFIGURACAO_ESPIRITOS
 
 class HuliJing(EspiritoBase):
     """
@@ -224,6 +224,8 @@ class HuliJing(EspiritoBase):
         
         # Atualiza animações das caudas
         self._atualizar_animacao_caudas(delta_tempo)
+        
+        self._atualizar_visual()
 
     def _verificar_evolucao(self):
         """
